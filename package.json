@@ -3,8 +3,9 @@
   "version": "2.0.0",
   "description": "Professional WhatsApp Session Generator",
   "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
+    "scripts": {
+    "start": "node index.js",
+    "stop": "pkill -f index.js"
   },
   "dependencies": {
     "@whiskeysockets/baileys": "latest",
