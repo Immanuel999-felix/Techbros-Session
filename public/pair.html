@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" href="style.css"></head>
+<body>
+    <div class="container">
+        <h1>Link Device</h1>
+        <p>Enter number with country code</p>
+        <input type="number" id="phone" placeholder="2349012345678">
+        <button id="btn" onclick="getCode()">GET CODE</button>
+        <h2 id="code" style="color: #00ff88; letter-spacing: 3px;"></h2>
+        <a href="/">Back Home</a>
+    </div>
+    <script>
+        async function getCode() {
+            const phone = document.getElementById('phone').value;
+            const btn = document.getElementById('btn');
+            const code = document.getElementById('code');
+            if(!phone) return alert("Enter Number");
+            btn.innerText = "Processing...";
+            try {
+                const res = await fetch(`/pair?code=${phone}`);
+                const data = await res.json();
+                if(data.code) { code.innerText = data.code; btn.style.display='none'; }
+                else { btn.innerText = "Try Again"; }
+            } catch(e) { btn.innerText = "Error"; }
+        }
+    </script>
+</body>
+</html>
