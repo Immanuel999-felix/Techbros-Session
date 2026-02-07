@@ -1,21 +1,20 @@
-# 1. Use a stable Node.js version
+# Use Node.js 20 (Slim version is faster and lighter)
 FROM node:20-bullseye-slim
 
-# 2. Set the working directory
+# Set working directory
 WORKDIR /usr/src/app
 
-# 3. Copy package files first (better caching)
+# Copy package files first
 COPY package*.json ./
 
-# 4. Install dependencies AND pm2 globally to fix the "pm2 not found" error
-RUN npm install
-RUN npm install -g pm2
+# Install dependencies (ignoring optional ones to prevent errors)
+RUN npm install --no-optional
 
-# 5. Copy all your project files
+# Copy the rest of the files
 COPY . .
 
-# 6. Expose the port
+# Expose the port
 EXPOSE 8000
 
-# 7. Start the bot using your package.json script
-CMD ["npm", "start"]
+# Start the bot directly (This matches the new package.json)
+CMD ["node", "index.js"]
